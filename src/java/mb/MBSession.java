@@ -12,7 +12,7 @@ import javax.faces.bean.SessionScoped;
 
 /**
  *
- * @author Jelena Tabaš
+ * @author Jelena Tabas
  */
 @ManagedBean
 @SessionScoped

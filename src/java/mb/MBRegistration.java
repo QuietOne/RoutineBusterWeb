@@ -19,7 +19,7 @@ import session.user.SessionClientLocal;
 
 /**
  *
- * @author Jelena Tabaš
+ * @author Jelena Tabas
  */
 @ManagedBean
 @RequestScoped
