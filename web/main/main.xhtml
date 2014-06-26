@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <h:form>  
+            <p:growl id="messages"/>
+
+            <p:menubar>
+                <p:submenu label="File" icon="ui-icon-document">
+                    <p:menuitem value="Nova igra" url="#" />
+                    <p:menuitem value="Statistika" url="#" />
+                    <p:separator />
+                    <p:menuitem value="Izlaz" url="#" />
+                </p:submenu>
+
+                <p:submenu label="Edit" icon="ui-icon-pencil">
+                    <p:submenu label="Dodaj" >
+                        <p:menuitem value="Kategoriju" update="messages"/>
+                        <p:menuitem value="Pitanje" update="messages"/>
+                    </p:submenu>
+                    <p:submenu label="Izmeni" >
+                        <p:menuitem value="Kategoriju" update="messages"/>
+                        <p:menuitem value="Pitanje" update="messages"/>
+                    </p:submenu>
+                    <p:submenu label="Obriši" >
+                        <p:menuitem value="Kategoriju" update="messages"/>
+                        <p:menuitem value="Pitanje" update="messages"/>
+                    </p:submenu>
+                </p:submenu>                
+                
+                 <p:submenu label="Profil" icon="ui-icon-gear">
+                     <p:submenu label="Odobri" >
+                        <p:menuitem value="Kategoriju" update="messages"/>
+                        <p:menuitem value="Pitanje" update="messages"/>
+                    </p:submenu>
+                </p:submenu>
+                
+                <p:submenu label="Help" icon="ui-icon-help">
+                    <p:menuitem value="Pomoć" url="#" />
+                    <p:menuitem value="O autorima" url="#" />
+                </p:submenu>
+
+                <p:submenu label="Administrator" icon="ui-icon-gear">
+                     <p:submenu label="Odobri" >
+                        <p:menuitem value="Kategoriju" update="messages"/>
+                        <p:menuitem value="Pitanje" update="messages"/>
+                    </p:submenu>
+                </p:submenu>
+
+                <f:facet name="options">   
+                    <h:outputText value="Pozdrav korisnice!" />
+                    <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                </f:facet>
+            </p:menubar>
+        </h:form>
+    </h:head>
+    <h:body>
+    </h:body>
+
+
+</html>

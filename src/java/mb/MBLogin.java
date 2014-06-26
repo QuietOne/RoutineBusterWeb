@@ -47,8 +47,8 @@ public class MBLogin {
     @EJB
     SessionClientLocal SBClient;
     public String logIn() {
-        return "/main/main.xhtml";
-    /*    System.out.println("Username: " + activeClient.getUsername() + "; password: " + activeClient.getPassword());
+    //    return "/main/main.xhtml";
+    //    System.out.println("Username: " + activeClient.getUsername() + "; password: " + activeClient.getPassword());
 
         try {
             isActive = SBClient.validateLogin(activeClient.getUsername(), activeClient.getPassword());
@@ -61,7 +61,7 @@ public class MBLogin {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Korisnik nije uspesno ucitan", ""));
         }
         return null;
-  */  }
+   }
 
     public MBSession getmBSession() {
         return mBSession;
