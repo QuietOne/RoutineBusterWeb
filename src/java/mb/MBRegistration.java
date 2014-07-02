@@ -37,7 +37,7 @@ public class MBRegistration {
 
     public void addClient() {
         try {
-            sbClient.validateRegister(client);
+            sbClient.validateRegister(client, confirmPassword);
             sbClient.addClient(client);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Uspesno je sacuvan korisnik!", ""));
         } catch (Exception e) {
