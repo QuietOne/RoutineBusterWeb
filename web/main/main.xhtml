@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -50,8 +45,7 @@ and open the template in the editor.
                     <p:menuitem value="Pomoć" url="#" />
                     <p:menuitem value="O autorima" url="#" />
                 </p:submenu>
-
-                <p:submenu label="Administrator" icon="ui-icon-gear">
+                <p:submenu label="Administrator" icon="ui-icon-gear" rendered="#{mBSession.activeClient.admin}">
                     <p:submenu label="Odobri" >
                         <p:menuitem value="Kategoriju" update="messages"/>
                         <p:menuitem value="Pitanje" update="messages"/>
