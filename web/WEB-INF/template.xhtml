@@ -1,50 +1,67 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <<h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!--<h:outputStylesheet name="./css/default.css"/>-->
         <title>Routine Buster</title>
     </h:head>
     <h:body>
+        <h:form>  
+                <p:growl id="messages"/>
 
-        <div id="top">
-            
-                <h:form>
+                <p:menubar>
+                    <p:submenu label="File" icon="ui-icon-document">
+                        <p:menuitem value="Nova igra" url="#" />
+                        <p:menuitem value="Statistika" url="#" />
+                        <p:separator />
+                        <p:menuitem value="Izlaz" url="#" />
+                    </p:submenu>
 
-                    <p:menubar>
-                        <p:submenu label="Rad sa proizvodima">
-                            <p:menuitem value="Prikaz prozivoda" action="/radSaProizvodima/prikazProizvoda.xhtml"  ajax="false"  />
-                            <p:menuitem value="Unos proizvoda" action="/radSaProizvodima/unosProizvoda.xhtml"  ajax="false"  />
+                    <p:submenu label="Edit" icon="ui-icon-pencil">
+                        <p:submenu label="Dodaj" >
+                            <p:menuitem value="Kategoriju" update="messages"/>
+                            <p:menuitem value="Pitanje" update="messages"/>
                         </p:submenu>
-                        
-                        <p:submenu label="Rad sa racunima">
-                            
-                            <p:menuitem value="Unos racuna" action="/radSaRacunima/unosRacuna.xhtml"  ajax="false"  />
+                        <p:submenu label="Izmeni" >
+                            <p:menuitem value="Kategoriju" update="messages"/>
+                            <p:menuitem value="Pitanje" update="messages"/>
                         </p:submenu>
+                        <p:submenu label="Obriši" >
+                            <p:menuitem value="Kategoriju" update="messages"/>
+                            <p:menuitem value="Pitanje" update="messages"/>
+                        </p:submenu>
+                    </p:submenu>                
 
-                    </p:menubar>
-                </h:form>
-            <ui:insert name="top">
-                ererere
-            </ui:insert>
-        </div>
-        <div>
-            <div id="left">
-                <ui:insert name="left">Left</ui:insert>
-            </div>
-            <div id="content" class="left_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
-        </div>
-        <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
-        </div>
 
+                    <p:submenu label="Profil" icon="ui-icon-gear">
+                        <p:submenu label="Odobri" >
+                            <p:menuitem value="Kategoriju" update="messages"/>
+                            <p:menuitem value="Pitanje" update="messages"/>
+                        </p:submenu>
+                    </p:submenu>
+
+                    <p:submenu label="Help" icon="ui-icon-help">
+                        <p:menuitem value="Pomoć" url="#" />
+                        <p:menuitem value="O autorima" url="#" />
+                    </p:submenu>
+                    <p:submenu label="Administrator" icon="ui-icon-gear" rendered="#{mBSession.activeClient.admin}">
+                        <p:submenu label="Odobri" >
+                            <p:menuitem value="Kategoriju" update="messages"/>
+                            <p:menuitem value="Pitanje" update="messages"/>
+                        </p:submenu>
+                    </p:submenu>
+
+                    <f:facet name="options">   
+                        <h:outputText value="Pozdrav #{mBSession.activeClient.username}!" />
+                        <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                    </f:facet>
+                </p:menubar>
+            </h:form>
     </h:body>
 </html>
 

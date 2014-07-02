@@ -9,11 +9,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import session.client.SessionClientLocal;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Jelena Tabas
@@ -29,7 +24,7 @@ public class MBLogin {
     private MBSession mBSession;
 
     /**
-     * Creates a new instance of MBLogovanje
+     * Creates a new instance of MBLogin
      */
     public MBLogin() {
         activeClient = new Client();
@@ -46,14 +41,19 @@ public class MBLogin {
 
     @EJB
     SessionClientLocal SBClient;
+
     public String logIn() {
-    //    return "/main/main.xhtml";
-    //    System.out.println("Username: " + activeClient.getUsername() + "; password: " + activeClient.getPassword());
+        //    return "/main/main.xhtml";
+        //    System.out.println("Username: " + activeClient.getUsername() + "; password: " + activeClient.getPassword());
 
         try {
             isActive = SBClient.validateLogin(activeClient.getUsername(), activeClient.getPassword());
+            if (!isActive) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Korisnicko ime ili/i sifra nije dobro unešena", ""));
+                return null;
+            }
             activeClient = SBClient.getClient(activeClient.getUsername());
-         //   System.out.println("redirect!!");
+            //   System.out.println("redirect!!");
             mBSession.setActiveClient(activeClient);
             return "/main/main.xhtml"; //"/radSaProizvodima/prikazProizvoda.xhtml";
         } catch (Exception ex) {
@@ -61,7 +61,7 @@ public class MBLogin {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Korisnik nije uspesno ucitan", ""));
         }
         return null;
-   }
+    }
 
     public MBSession getmBSession() {
         return mBSession;
@@ -77,6 +77,15 @@ public class MBLogin {
 
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    @Override
+    public String toString() {
+        if (isActive) {
+            return activeClient + " is active.";
+        } else {
+            return activeClient + " is not active.";
+        }
     }
 
 }

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registration</title>
+    </h:head>
+    <h:body>
+        <h:form id="frmRegistration">
+            <p:messages id="msgPoruke" />
+            <h:panelGrid columns="2">
+
+                <h:outputText value="Ime:"/>
+                <h:inputText value="#{mBRegistration.client.name}" />
+                
+                <h:outputText value="Prezime:"/>
+                <h:inputText value="#{mBRegistration.client.coname}" />
+                
+                <h:outputText value="Korisnicko ime:"/>
+                <h:inputText value="#{mBRegistration.client.username}" />
+
+                <h:outputText value="Korisnicka sifra:"/>  
+                <h:inputSecret value="#{mBRegistration.client.password}" />
+                
+                <h:outputText value="Ponovo ukucajte sifru:"/>  
+                <h:inputSecret value="#{mBRegistration.confirmPassword}" />
+                
+                <h:outputText value="Email:"/>  
+                <h:inputText value="#{mBRegistration.client.email}" />
+
+            </h:panelGrid>                       
+
+            <p:commandButton value="Registruj se" action="#{mBRegistration.addClient()}"  ajax="false" />
+        </h:form>
+    </h:body>
+</html>
+

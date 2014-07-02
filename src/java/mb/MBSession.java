@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mb;
 
 import domain.Category;
@@ -21,9 +16,8 @@ public class MBSession {
     private Client activeClient;
     private Category chosenCategory;
 
-  //  Proizvod izabraniProizvod;
     /**
-     * Creates a new instance of MBSesija
+     * Creates a new instance of MBSession
      */
     public MBSession() {
     }
@@ -42,5 +36,10 @@ public class MBSession {
 
     public void setChosenCategory(Category chosenCategory) {
         this.chosenCategory = chosenCategory;
+    }
+
+    @Override
+    public String toString() {
+        return "activeClient=" + activeClient + "\nchosenCategory=" + chosenCategory;
     }
 }
