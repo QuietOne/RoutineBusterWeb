@@ -59,7 +59,7 @@ and open the template in the editor.
                 </p:submenu>
 
                 <f:facet name="options">   
-                    <h:outputText value="Pozdrav korisnice!" />
+                    <h:outputText value="Pozdrav #{mBSession.activeClient.username}!" />
                     <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
                 </f:facet>
             </p:menubar>
