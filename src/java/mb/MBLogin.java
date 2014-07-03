@@ -63,6 +63,10 @@ public class MBLogin {
         return null;
     }
 
+    public String logOut() {
+        return "index.xhtml";
+    }
+
     public MBSession getmBSession() {
         return mBSession;
     }
