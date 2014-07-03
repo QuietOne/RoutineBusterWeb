@@ -27,21 +27,21 @@
 
                     <p:submenu label="Edit" icon="ui-icon-pencil">
                         <p:submenu label="Dodaj" >
-                            <p:menuitem value="Kategoriju" update="messages" url="/main/kategorija.xhtml"/>
-                            <p:menuitem value="Pitanje" update="messages" url="/main/pitanje.xhtml"/>
+                            <p:menuitem value="Kategoriju" update="messages" url="/main/category.xhtml"/>
+                            <p:menuitem value="Pitanje" update="messages" url="/main/question.xhtml"/>
                         </p:submenu>
                         <p:submenu label="Izmeni" >
-                            <p:menuitem value="Kategoriju" update="messages" url="/main/kategorija.xhtml"/>
-                            <p:menuitem value="Pitanje" update="messages" url="/main/pitanje.xhtml"/>
+                            <p:menuitem value="Kategoriju" update="messages" url="/main/category.xhtml"/>
+                            <p:menuitem value="Pitanje" update="messages" url="/main/question.xhtml"/>
                         </p:submenu>
                         <p:submenu label="Obriši" >
-                            <p:menuitem value="Kategoriju" update="messages" url="/main/kategorija.xhtml"/>
-                            <p:menuitem value="Pitanje" update="messages" url="/main/pitanje.xhtml"/>
+                            <p:menuitem value="Kategoriju" update="messages" url="/main/category.xhtml"/>
+                            <p:menuitem value="Pitanje" update="messages" url="/main/question.xhtml"/>
                         </p:submenu>
                     </p:submenu>                
 
                     <p:menuitem value="Profil" url="/profil.xhtml" icon="ui-icon-gear"/>
-                   
+
 
                     <p:submenu label="Help" icon="ui-icon-help">
                         <p:menuitem value="Pomoć" url="#" />
@@ -49,7 +49,7 @@
                     </p:submenu>
                     <p:submenu label="Administrator" icon="ui-icon-gear" rendered="#{mBSession.activeClient.admin}">
                         <p:submenu label="Odobri" >
-                            <p:menuitem value="Kategoriju" update="messages" url="/main/kategorija.xhtml"/>
+                            <p:menuitem value="Kategoriju" update="messages" url="/main/category.xhtml"/>
                             <p:menuitem value="Pitanje" update="messages" url="/main/pitanje.xhtml"/>
                         </p:submenu>
                     </p:submenu>
@@ -58,10 +58,25 @@
                         <h:outputText value="Pozdrav #{mBSession.activeClient.username}!" />
 
                     </f:facet>
-                              <p:menuitem value="Izlaz" url="/" />
+                    <p:menuitem value="Izlaz" url="/" />
                 </p:menubar>
             </h:form>
+            <ui:insert name="top">
+                ererere
+            </ui:insert>
         </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left"></ui:insert>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content"></ui:insert>
+            </div>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom"></ui:insert>
+        </div>
+
     </h:body>
 </html>
 
