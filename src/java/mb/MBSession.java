@@ -2,6 +2,9 @@ package mb;
 
 import domain.Category;
 import domain.Client;
+import domain.Question;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -42,4 +45,5 @@ public class MBSession {
     public String toString() {
         return "activeClient=" + activeClient + "\nchosenCategory=" + chosenCategory;
     }
-}
+
+ }

@@ -14,19 +14,22 @@
             <ui:define name="top">
 
             </ui:define>
-            
+
             <ui:define name="left">
-                left
-            </ui:define>
-            <ui:define name="content">
+                <h:form>
+                    <p:outputLabel value="DropDown:" for="dd" />
+                    <p:autoComplete id="dd" dropdown="true" value="#{mBQuestion.questionText}" completeMethod="#{mBQuestion.autoCompleteQuestion}" />
+                </h:form>
+    
 
             </ui:define>
             <ui:define name="content">
 
+         
             </ui:define>
-            
+
             <ui:define name="bottom">
-                bottom
+                
             </ui:define>
 
         </ui:composition>
