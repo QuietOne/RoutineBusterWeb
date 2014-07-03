@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/WEB-INF/template.xhtml">
+
+            <ui:define name="top">
+
+            </ui:define>
+
+            <ui:define name="left">
+
+
+
+            </ui:define>
+            <ui:define name="content">
+
+
+                <h:form>      
+                    <h:panelGrid columns="2">
+
+                        <h:outputLabel value="Ime" />
+                        <p:inputText value="#{mBSession.activeClient.name}"/>
+
+
+                        <h:outputLabel value="Prezime" />
+                        <p:inputText value="#{mBSession.activeClient.coname}"/>
+
+
+                        <h:outputLabel value="Username" />
+                        <p:inputText value="#{mBSession.activeClient.username}"/>
+
+
+                        <h:outputLabel value="Password" />
+                        <p:inputText value="#{mBSession.activeClient.password}"/>
+
+
+                        <h:outputLabel value="E-mail" />
+                        <p:inputText value="#{mBSession.activeClient.email}"/>
+                
+                        <p:column colspan="2">Promenite šifru</p:column>
+                        <p></p>
+                        <h:outputLabel value="Unesite šifru" />
+                        <p:inputText />
+
+                        <h:outputLabel value="Potvrdite šifru" />
+                        <p:inputText />
+                        
+                        <p></p>
+                        <p:button value="Potvrdi izmenu"></p:button>
+                    </h:panelGrid>
+                    
+                </h:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+
+
+</html>
