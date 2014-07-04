@@ -33,25 +33,39 @@
                         </p:tree>
                     </h:form>
 
-                    <h:form id="gameModule" rendered="#{mBSession.gameOn}">
+                    <h:panelGroup id="gameModule">
+                        <h:form rendered="#{mBSession.gameOn}" >
+                            <h:outputText value="Time left: " />
+                            <h:outputText id="txt_count" value="#{mBTimer.number}" />
+                            <p:poll interval="1" listener="#{mBTimer.decrease()}" update=":gameModule" stop="#{mBTimer.stop}"/>
+                            <p></p>
+                            <h:outputText value="Result: #{mBGame.result.value}"/>
+                            <p></p>
+                            <p:inputTextarea value="#{mBGame.questionText}" rows="5" cols="50" styleClass="txtArea" disabled="true"/>
+                            <p></p>
+                            <p:commandButton id="button1" styleClass="button" value="#{mBGame.answerText1}" action="#{mBGame.evaluateAnswer1()}">
+                                <p:ajax update=":gameModule"/>
+                            </p:commandButton>
+                            <p:commandButton id="button2" styleClass="button" value="#{mBGame.answerText2}" action="#{mBGame.evaluateAnswer2()}">
+                                <p:ajax update=":gameModule"/>
+                            </p:commandButton>
+                            <p:commandButton id="button3" styleClass="button" value="#{mBGame.answerText3}" action="#{mBGame.evaluateAnswer3()}">
+                                <p:ajax update=":gameModule"/>
+                            </p:commandButton>
+                            <p:commandButton id="button4" styleClass="button" value="#{mBGame.answerText4}" action="#{mBGame.evaluateAnswer4()}">
+                                <p:ajax update=":gameModule"/>
+                            </p:commandButton>
+                        </h:form>
                         
-                        <h:outputLabel value="Timer:" />
-                        <p></p>
-                        <p:inputTextarea rows="5" cols="50" styleClass="txtArea" />
-                        <p></p>
-                        <p:commandButton id="button1" styleClass="button" value="#{mBGame.answerText1}" action="#{mBGame.evaluateAnswer1()}">
-                            <p:ajax update="@form"/>
-                        </p:commandButton>
-                        <p:commandButton id="button2" styleClass="button" value="#{mBGame.answerText2}" action="#{mBGame.evaluateAnswer2()}">
-                            <p:ajax update="@form"/>
-                        </p:commandButton>
-                        <p:commandButton id="button3" styleClass="button" value="#{mBGame.answerText3}" action="#{mBGame.evaluateAnswer3()}">
-                            <p:ajax update="@form"/>
-                        </p:commandButton>
-                        <p:commandButton id="button4" styleClass="button" value="#{mBGame.answerText4}" action="#{mBGame.evaluateAnswer4()}">
-                            <p:ajax update="@form"/>
-                        </p:commandButton>
-                    </h:form>
+                        <h:form rendered="#{mBTimer.gameOver}">
+                            <p:commandButton value="Vidi rezultat">
+                                <p:confirm header="Rezultati" message="Vas rezultat je: #{mBGame.result.value}"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="Ok" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            </p:confirmDialog>
+                        </h:form>
+                    </h:panelGroup>
                 </h:panelGroup>
             </ui:define>
 

@@ -79,6 +79,7 @@ public class MBGame implements Serializable {
         test = new Test();
         test.setIdCat(mBSession.getChosenCategory());
         result = new Result();
+        result.setValue(new Integer(0));
         result.setIdClient(mBSession.getActiveClient());
         result.setIdTest(test);
         questions = sQuestion.getQuestions(mBSession.getChosenCategory());
@@ -102,7 +103,7 @@ public class MBGame implements Serializable {
         test.getTestitemList().add(testItem);
         testItem.setIdTest(test);
         if (questions.isEmpty()) {
-            Question question = new Question();
+            activeQuestion = null;
         } else {
             testItem.setIdQuestion(questions.get(number));
             List<Answer> answers = generateAnswers(questions.get(number));
@@ -115,7 +116,7 @@ public class MBGame implements Serializable {
     public void answerQuestion(Answer answer) {
         if (answer.getCorrect()) {
             //every correct answer is one point worth
-            result.setValue(result.getValue() + 1);
+            result.increaseValue();
         }
     }
 
@@ -346,6 +347,30 @@ public class MBGame implements Serializable {
 
     public void setsResult(SessionResultLocal sResult) {
         this.sResult = sResult;
+    }
+
+    public Test getTest() {
+        return test;
+    }
+
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
 }

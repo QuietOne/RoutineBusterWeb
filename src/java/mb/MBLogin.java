@@ -43,9 +43,6 @@ public class MBLogin {
     SessionClientLocal SBClient;
 
     public String logIn() {
-        //    return "/main/main.xhtml";
-        //    System.out.println("Username: " + activeClient.getUsername() + "; password: " + activeClient.getPassword());
-
         try {
             isActive = SBClient.validateLogin(activeClient.getUsername(), activeClient.getPassword());
             if (!isActive) {
@@ -53,9 +50,8 @@ public class MBLogin {
                 return null;
             }
             activeClient = SBClient.getClient(activeClient.getUsername());
-            //   System.out.println("redirect!!");
             mBSession.setActiveClient(activeClient);
-            return "/main/main.xhtml"; //"/radSaProizvodima/prikazProizvoda.xhtml";
+            return "/main/main.xhtml"; 
         } catch (Exception ex) {
             ex.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Korisnik nije uspesno ucitan", ""));
@@ -64,6 +60,7 @@ public class MBLogin {
     }
 
     public String logOut() {
+        mBSession.setActiveClient(null);
         return "index.xhtml";
     }
 
