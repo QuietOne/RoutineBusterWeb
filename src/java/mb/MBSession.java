@@ -16,11 +16,13 @@ public class MBSession implements Serializable{
 
     private Client activeClient;
     private Category chosenCategory;
+    private boolean gameOn;
 
     /**
      * Creates a new instance of MBSession
      */
     public MBSession() {
+        gameOn = false;
     }
     
     public Client getActiveClient() {
@@ -44,4 +46,12 @@ public class MBSession implements Serializable{
         return "activeClient=" + activeClient + "\nchosenCategory=" + chosenCategory;
     }
 
+    public boolean isGameOn() {
+        return gameOn;
+    }
+
+    public void setGameOn(boolean gameOn) {
+        this.gameOn = gameOn;
+    }
+ 
  }

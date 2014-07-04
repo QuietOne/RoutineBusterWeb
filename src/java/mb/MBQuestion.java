@@ -35,7 +35,7 @@ public class MBQuestion {
     public MBQuestion() {
     }
 
-    public List<String> autoCompleteQuestion(String text) {
+    public List<Question> autoCompleteQuestion(String text) {
         return sQuestion.autocompleteQuestion(text);
     }
 

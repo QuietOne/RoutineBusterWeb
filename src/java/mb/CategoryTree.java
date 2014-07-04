@@ -51,29 +51,18 @@ public class CategoryTree implements Serializable {
         }
     }
 
-    
-    @Deprecated
-    public String onNodeClick(Category c) {
-        if (c.getCategoryList() != null) {
-            root.setExpanded(true);
-            return "#";
-        }
-        mBSession.setChosenCategory(c);
-        return "/main/game.xhtml";
-    }
-
-    public String onNodeSelect(NodeSelectEvent event) {
+    public void onNodeSelect(NodeSelectEvent event) {
         if (event.getTreeNode().isLeaf()) {
             mBSession.setChosenCategory((Category) event.getTreeNode().getData());
-            return "/main/game.xhtml";
+            mBSession.setGameOn(true);
         } else {
             if (event.getTreeNode().isExpanded()) {
                 event.getTreeNode().setExpanded(false);
             } else {
                 event.getTreeNode().setExpanded(true);
             }
-            return "#";
         }
+        event.getTreeNode().setSelected(false);
     }
 
     public TreeNode getRoot() {

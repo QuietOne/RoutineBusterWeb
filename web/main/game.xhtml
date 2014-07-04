@@ -19,29 +19,39 @@
 
 
 
-
             </ui:define>
-            <ui:define name="content">
-                <h:form>               
-                    <h:outputLabel value="Timer:" />
 
-                    <p></p>
-                    <p:inputTextarea rows="5" cols="50" styleClass="txtArea" />
-                    <p></p>
+            <ui:define  name="content">
+                <h:panelGroup id="update">
+                    <h:form id="game" rendered="#{!mBSession.gameOn}">
+                        <p:tree value="#{categoryTree.root}" 
+                                var="node" selectionMode="single" styleClass="tree">
+                            <p:ajax update=":update" event="select" listener="#{categoryTree.onNodeSelect}" />
+                            <p:treeNode>
+                                <h:outputText value="#{node}"/>
+                            </p:treeNode>
+                        </p:tree>
+                    </h:form>
 
-                    <p:button id="button1" styleClass="button" >
-                    </p:button>
-                    <p:button id="button2" styleClass="button" >
-                    </p:button>
-                  
-                    <p:button id="button3" styleClass="button" >
+                    <h:form rendered="#{mBSession.gameOn}">               
+                        <h:outputLabel value="Timer:" />
 
-                    </p:button>
-                    <p:button id="button4" styleClass="button" >
+                        <p></p>
+                        <p:inputTextarea rows="5" cols="50" styleClass="txtArea" />
+                        <p></p>
 
-                    </p:button>
-                </h:form>
+                        <p:button id="button1" styleClass="button" >
+                        </p:button>
 
+                        <p:button id="button2" styleClass="button" >
+                        </p:button>
+
+                        <p:button id="button3" styleClass="button" >
+                        </p:button>
+                        <p:button id="button4" styleClass="button" >
+                        </p:button>
+                    </h:form>
+                </h:panelGroup>
             </ui:define>
 
             <ui:define name="bottom">
