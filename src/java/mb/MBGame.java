@@ -40,15 +40,16 @@ public class MBGame {
 
     @EJB
     SessionQuestionLocal sQuestion;
-    
+
     @EJB
     SessionAnswerLocal sAnswer;
-    
+
     @EJB
     SessionTestLocal sTest;
-    
+
     @EJB
     SessionResultLocal sResult;
+
     /**
      * Creates a new instance of MBGame
      */
@@ -97,7 +98,7 @@ public class MBGame {
     public void answerQuestion(Answer answer) {
         if (answer.getCorrect()) {
             //every correct answer is one point worth
-            result.setValue(result.getValue()+1);
+            result.setValue(result.getValue() + 1);
         }
     }
 
@@ -138,6 +139,103 @@ public class MBGame {
     }
 
     /**
+     * Check if question is loaded.
+     *
+     * @return
+     */
+    public boolean isThereMoreQuestions() {
+        return activeQuestion != null;
+    }
+
+    /**
+     * Get texts from answers.
+     *
+     * @return 4 strings
+     */
+    public String[] getAnswersText() {
+        String[] texts = new String[4];
+        int i = 0;
+        for (Answer answer : activeQuestion.getAnswerList()) {
+            texts[i] = answer.getText();
+            i++;
+        }
+        return texts;
+    }
+
+    public String getAnswerText1() {
+        return activeQuestion.getAnswerList().get(0).getText();
+    }
+
+    public String getAnswerText2() {
+        return activeQuestion.getAnswerList().get(1).getText();
+    }
+
+    public String getAnswerText3() {
+        return activeQuestion.getAnswerList().get(2).getText();
+    }
+
+    public String getAnswerText4() {
+        return activeQuestion.getAnswerList().get(3).getText();
+    }
+
+    /**
+     * Get text from Question.
+     *
+     * @return
+     */
+    public String getQuestionText() {
+        String temp = activeQuestion.getText();
+        StringBuilder builder = new StringBuilder(temp);
+        boolean canDo = true;
+        final int NEW_LINE = 70;
+        final int RANGE = 50;
+        for (int i = 1; i < temp.length() / NEW_LINE; i++) {
+            int j = 0;
+            for (; j < RANGE; j++) {
+                if (i * NEW_LINE + j >= temp.length()) {
+                    canDo = false;
+                }
+                if (temp.charAt(i * NEW_LINE + j) == ' ') {
+                    break;
+                }
+            }
+            if (canDo) {
+                builder.insert(i * NEW_LINE + j + 1, "\n");
+            }
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Method for answering question.
+     *
+     * @param text
+     */
+    public void answerQuestion(String text) {
+        for (Answer answer : activeQuestion.getAnswerList()) {
+            if (answer.getText().equals(text)) {
+                answerQuestion(answer);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Was answer correct.
+     *
+     * @param text
+     * @return
+     */
+    public boolean isCorrect(String text) {
+        for (Answer answer : activeQuestion.getAnswerList()) {
+            if (answer.getText().equals(text)) {
+                return answer.getCorrect();
+            }
+        }
+        return false;
+    }
+
+    /**
      * Method for returning test that the client do.
      *
      * @param client
@@ -168,5 +266,5 @@ public class MBGame {
             Logger.getLogger(MBGame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
