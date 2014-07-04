@@ -28,7 +28,7 @@ public class MBChangePassword {
     private String confirmPassword;
 
     @EJB
-    SessionClientLocal sbClient;
+    private SessionClientLocal sbClient;
 
     @ManagedProperty(value = "#{mBSession}")
     private MBSession mBSession;
@@ -42,7 +42,9 @@ public class MBChangePassword {
 
     public void changePassword() {
         try {
-            sbClient.changePassword(mBSession.getActiveClient().getUsername(), oldPassword, newPassword, confirmPassword);
+         //   client = mBSession.getActiveClient();
+         //   System.out.println(client.getUsername());
+      //      sbClient.changePassword(mBSession.getActiveClient().getUsername(), oldPassword, newPassword, confirmPassword);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,6 +89,14 @@ public class MBChangePassword {
 
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;
+    }
+
+    public SessionClientLocal getSbClient() {
+        return sbClient;
+    }
+
+    public void setSbClient(SessionClientLocal sbClient) {
+        this.sbClient = sbClient;
     }
 
 }
