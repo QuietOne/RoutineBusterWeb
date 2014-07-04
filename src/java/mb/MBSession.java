@@ -46,7 +46,7 @@ public class MBSession implements Serializable{
         return "activeClient=" + activeClient + "\nchosenCategory=" + chosenCategory;
     }
 
-    public boolean isGameOn() {
+    public boolean getGameOn() {
         return gameOn;
     }
 

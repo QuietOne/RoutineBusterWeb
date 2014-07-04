@@ -21,7 +21,7 @@
 
             </ui:define>
 
-            <ui:define  name="content">
+            <ui:define name="content">
                 <h:panelGroup id="update">
                     <h:form id="game" rendered="#{!mBSession.gameOn}">
                         <p:tree value="#{categoryTree.root}" 
@@ -33,23 +33,24 @@
                         </p:tree>
                     </h:form>
 
-                    <h:form rendered="#{mBSession.gameOn}">               
+                    <h:form id="gameModule" rendered="#{mBSession.gameOn}">
+                        
                         <h:outputLabel value="Timer:" />
-
                         <p></p>
                         <p:inputTextarea rows="5" cols="50" styleClass="txtArea" />
                         <p></p>
-
-                        <p:button id="button1" styleClass="button" >
-                        </p:button>
-
-                        <p:button id="button2" styleClass="button" >
-                        </p:button>
-
-                        <p:button id="button3" styleClass="button" >
-                        </p:button>
-                        <p:button id="button4" styleClass="button" >
-                        </p:button>
+                        <p:commandButton id="button1" styleClass="button" value="#{mBGame.answerText1}" action="#{mBGame.evaluateAnswer1()}">
+                            <p:ajax update="@form"/>
+                        </p:commandButton>
+                        <p:commandButton id="button2" styleClass="button" value="#{mBGame.answerText2}" action="#{mBGame.evaluateAnswer2()}">
+                            <p:ajax update="@form"/>
+                        </p:commandButton>
+                        <p:commandButton id="button3" styleClass="button" value="#{mBGame.answerText3}" action="#{mBGame.evaluateAnswer3()}">
+                            <p:ajax update="@form"/>
+                        </p:commandButton>
+                        <p:commandButton id="button4" styleClass="button" value="#{mBGame.answerText4}" action="#{mBGame.evaluateAnswer4()}">
+                            <p:ajax update="@form"/>
+                        </p:commandButton>
                     </h:form>
                 </h:panelGroup>
             </ui:define>

@@ -6,6 +6,7 @@ import domain.Question;
 import domain.Result;
 import domain.Test;
 import domain.Testitem;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,9 +14,9 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import session.answer.SessionAnswerLocal;
 import session.question.SessionQuestionLocal;
 import session.result.SessionResultLocal;
@@ -26,9 +27,9 @@ import session.test.SessionTestLocal;
  * @author Tihomir Radosavljevic
  * @version 1.0
  */
-@Named(value = "mBGame")
-@Dependent
-public class MBGame {
+@ManagedBean(name = "mBGame")
+@ViewScoped
+public class MBGame implements Serializable {
 
     private Question activeQuestion;
     private Test test;
@@ -39,21 +40,35 @@ public class MBGame {
     private MBSession mBSession;
 
     @EJB
-    SessionQuestionLocal sQuestion;
+    private SessionQuestionLocal sQuestion;
 
     @EJB
-    SessionAnswerLocal sAnswer;
+    private SessionAnswerLocal sAnswer;
 
     @EJB
-    SessionTestLocal sTest;
+    private SessionTestLocal sTest;
 
     @EJB
-    SessionResultLocal sResult;
+    private SessionResultLocal sResult;
 
     /**
      * Creates a new instance of MBGame
      */
     public MBGame() {
+        activeQuestion = new Question();
+        List<Answer> array = new ArrayList<Answer>();
+        for (int i = 0; i < 4; i++) {
+            array.add(new Answer(i + 1 + ""));
+        }
+        activeQuestion.setAnswerList(array);
+    }
+
+    public void init() {
+        System.out.println("napisano: " + mBSession.getGameOn());
+        newTest();
+        if (mBSession.getGameOn()) {
+            loadNewQuestion();
+        }
 
     }
 
@@ -83,13 +98,15 @@ public class MBGame {
             }
         }
         Testitem testItem = new Testitem();
+        test.setTestitemList(new ArrayList<Testitem>());
         test.getTestitemList().add(testItem);
         testItem.setIdTest(test);
         if (questions.isEmpty()) {
             Question question = new Question();
         } else {
             testItem.setIdQuestion(questions.get(number));
-            testItem.getIdQuestion().setAnswerList(generateAnswers(questions.get(number)));
+            List<Answer> answers = generateAnswers(questions.get(number));
+            testItem.getIdQuestion().setAnswerList(answers);
             questions.remove(number);
             activeQuestion = testItem.getIdQuestion();
         }
@@ -166,16 +183,36 @@ public class MBGame {
         return activeQuestion.getAnswerList().get(0).getText();
     }
 
+    public void evaluateAnswer1() {
+        answerQuestion(activeQuestion.getAnswerList().get(0));
+        loadNewQuestion();
+    }
+
     public String getAnswerText2() {
         return activeQuestion.getAnswerList().get(1).getText();
+    }
+
+    public void evaluateAnswer2() {
+        answerQuestion(activeQuestion.getAnswerList().get(1));
+        loadNewQuestion();
     }
 
     public String getAnswerText3() {
         return activeQuestion.getAnswerList().get(2).getText();
     }
 
+    public void evaluateAnswer3() {
+        answerQuestion(activeQuestion.getAnswerList().get(2));
+        loadNewQuestion();
+    }
+
     public String getAnswerText4() {
         return activeQuestion.getAnswerList().get(3).getText();
+    }
+
+    public void evaluateAnswer4() {
+        answerQuestion(activeQuestion.getAnswerList().get(3));
+        loadNewQuestion();
     }
 
     /**
@@ -265,6 +302,50 @@ public class MBGame {
         } catch (Exception ex) {
             Logger.getLogger(MBGame.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public MBSession getmBSession() {
+        return mBSession;
+    }
+
+    public void setmBSession(MBSession mBSession) {
+        this.mBSession = mBSession;
+    }
+
+    public String hello() {
+        return "-------------------------------hello-------------------------";
+    }
+
+    public SessionQuestionLocal getsQuestion() {
+        return sQuestion;
+    }
+
+    public void setsQuestion(SessionQuestionLocal sQuestion) {
+        this.sQuestion = sQuestion;
+    }
+
+    public SessionAnswerLocal getsAnswer() {
+        return sAnswer;
+    }
+
+    public void setsAnswer(SessionAnswerLocal sAnswer) {
+        this.sAnswer = sAnswer;
+    }
+
+    public SessionTestLocal getsTest() {
+        return sTest;
+    }
+
+    public void setsTest(SessionTestLocal sTest) {
+        this.sTest = sTest;
+    }
+
+    public SessionResultLocal getsResult() {
+        return sResult;
+    }
+
+    public void setsResult(SessionResultLocal sResult) {
+        this.sResult = sResult;
     }
 
 }

@@ -20,7 +20,6 @@ import session.category.SessionCategoryLocal;
  */
 @ManagedBean(name = "categoryTree")
 @ViewScoped
-@RequestScoped
 public class CategoryTree implements Serializable {
 
     @EJB
@@ -28,6 +27,9 @@ public class CategoryTree implements Serializable {
 
     @ManagedProperty(value = "#{mBSession}")
     private MBSession mBSession;
+    
+    @ManagedProperty(value = "#{mBGame}")
+    private MBGame mBGame;
 
     private Category categoryTree;
     private TreeNode root;
@@ -46,8 +48,6 @@ public class CategoryTree implements Serializable {
                 node.getChildren().add(treeNode);
                 addChildren(treeNode, category1);
             }
-        } else {
-
         }
     }
 
@@ -55,6 +55,7 @@ public class CategoryTree implements Serializable {
         if (event.getTreeNode().isLeaf()) {
             mBSession.setChosenCategory((Category) event.getTreeNode().getData());
             mBSession.setGameOn(true);
+            mBGame.init();
         } else {
             if (event.getTreeNode().isExpanded()) {
                 event.getTreeNode().setExpanded(false);
@@ -93,4 +94,13 @@ public class CategoryTree implements Serializable {
         this.categoryTree = categoryTree;
     }
 
+    public MBGame getmBGame() {
+        return mBGame;
+    }
+
+    public void setmBGame(MBGame mBGame) {
+        this.mBGame = mBGame;
+    }
+
+    
 }
