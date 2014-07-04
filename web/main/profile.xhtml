@@ -28,36 +28,32 @@
                     <h:panelGrid columns="2">
 
                         <h:outputLabel value="Ime" />
-                        <p:inputText value="#{mBSession.activeClient.name}"/>
-
+                        <p:inputText value="#{mBSession.activeClient.name}" readonly="true"/>
 
                         <h:outputLabel value="Prezime" />
-                        <p:inputText value="#{mBSession.activeClient.coname}"/>
-
+                        <p:inputText value="#{mBSession.activeClient.coname}" readonly="true"/>
 
                         <h:outputLabel value="Username" />
-                        <p:inputText value="#{mBSession.activeClient.username}"/>
-
-
-                        <h:outputLabel value="Password" />
-                        <p:inputText value="#{mBSession.activeClient.password}"/>
-
+                        <p:inputText value="#{mBSession.activeClient.username}" readonly="true"/>
 
                         <h:outputLabel value="E-mail" />
-                        <p:inputText value="#{mBSession.activeClient.email}"/>
-                
+                        <p:inputText value="#{mBSession.activeClient.email}" readonly="true"/>
+
                         <p:column colspan="2">Promenite šifru</p:column>
                         <p></p>
-                        <h:outputLabel value="Unesite šifru" />
-                        <p:inputText />
+                        <h:outputLabel value="Unesite staru šifru" />
+                        <h:inputSecret value="#{mBChangePassword.oldPassword}"/>
+
+                        <h:outputLabel value="Unesite novu šifru" />
+                        <h:inputSecret value="#{mBChangePassword.newPassword}"/>
 
                         <h:outputLabel value="Potvrdite šifru" />
-                        <p:inputText />
-                        
+                        <h:inputSecret value="#{mBChangePassword.confirmPassword}"/>
+
                         <p></p>
-                        <p:button value="Potvrdi izmenu"></p:button>
+                        <p:commandButton value="Potvrdi izmenu" action="#{mBChangePassword.changePassword()}"  ajax="false" />
                     </h:panelGrid>
-                    
+
                 </h:form>
             </ui:define>
 
