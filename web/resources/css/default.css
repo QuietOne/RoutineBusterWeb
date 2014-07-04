@@ -58,6 +58,13 @@ a:link:hover, a:visited:hover  {
     width: 150px;
 }
 
+#center {
+    position: relative;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
 .center_content {
     position: relative;
     background-color: #dddddd;
@@ -74,6 +81,17 @@ a:link:hover, a:visited:hover  {
     background-color: #dddddd;
     padding: 5px;
     margin: 0px 170px 0px 170px;
+}
+
+.button {
+    font-size: 30px;
+    width: 300px;
+    height:  200px;       
+}
+
+.txtArea {
+    margin: auto;
+    width: 99%;
 }
 
 #top a:link, #top a:visited {
