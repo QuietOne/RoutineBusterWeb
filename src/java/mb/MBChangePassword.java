@@ -6,10 +6,12 @@
 package mb;
 
 import domain.Client;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import session.client.SessionClientLocal;
 
@@ -17,10 +19,9 @@ import session.client.SessionClientLocal;
  *
  * @author Jelena Tabaš
  */
-@ManagedBean
-@Named(value = "mBChangePassword")
-@RequestScoped
-public class MBChangePassword {
+@ManagedBean(name = "mBChangePassword")
+@ViewScoped
+public class MBChangePassword implements Serializable {
 
     private Client client;
     private String oldPassword;
@@ -42,10 +43,15 @@ public class MBChangePassword {
 
     public void changePassword() {
         try {
-         //   client = mBSession.getActiveClient();
-         //   System.out.println(client.getUsername());
-      //      sbClient.changePassword(mBSession.getActiveClient().getUsername(), oldPassword, newPassword, confirmPassword);
-            
+
+            /*  
+             System.out.println("Username: "+mBSession.getActiveClient().getUsername());
+             System.out.println("Stara: "+oldPassword);
+             System.out.println("Nova: "+newPassword);
+             System.out.println("Cek: "+confirmPassword);
+             */
+            sbClient.changePassword(mBSession.getActiveClient().getUsername(), oldPassword, newPassword, confirmPassword);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
