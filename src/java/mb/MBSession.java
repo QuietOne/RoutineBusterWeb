@@ -2,9 +2,7 @@ package mb;
 
 import domain.Category;
 import domain.Client;
-import domain.Question;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -14,7 +12,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class MBSession {
+public class MBSession implements Serializable{
 
     private Client activeClient;
     private Category chosenCategory;
