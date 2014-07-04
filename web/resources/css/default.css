@@ -94,6 +94,11 @@ a:link:hover, a:visited:hover  {
     width: 99%;
 }
 
+.tree {
+    margin: auto;
+    width: auto;    
+}
+
 #top a:link, #top a:visited {
     color: white;
     font-weight : bold;
