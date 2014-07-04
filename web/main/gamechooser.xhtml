@@ -22,7 +22,13 @@
             </ui:define>
             <ui:define name="content">
 
-              
+                <h:form>
+                    <p:tree value="#{categoryTree.root}" var="node" dynamic="true" >
+                        <p:treeNode>
+                            <h:outputText value="#{node}"/>
+                        </p:treeNode>
+                    </p:tree>
+                </h:form>
 
             </ui:define>
 
