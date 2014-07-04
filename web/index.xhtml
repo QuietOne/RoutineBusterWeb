@@ -4,18 +4,20 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/login.css"/>
         <title>Routine Buster</title>
     </h:head>
     <h:body>              
-        <h:form id="frmLogovanje">
+        <h:form id="frmLogovanje" class="form-signin">
             <p:messages id="msgPoruke" />
             <h:panelGrid columns="2">
 
-                <h:outputText value="Korisnicko ime:"/>
-                <h:inputText value="#{mBLogin.activeClient.username}" />
+                <h:outputText value="Korisnicko ime:"  />
+                <h:inputText class="form-control" value="#{mBLogin.activeClient.username}" />
 
                 <h:outputText value="Korisnicka sifra:"/>  
-                <h:inputSecret value="#{mBLogin.activeClient.password}" />
+                <h:inputSecret class="form-control" value="#{mBLogin.activeClient.password}" />
 
             </h:panelGrid>                       
 

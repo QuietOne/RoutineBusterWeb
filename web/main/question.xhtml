@@ -15,21 +15,20 @@
 
             </ui:define>
 
-            <ui:define name="left">
-                <h:form>
-                    <p:outputLabel value="DropDown:" for="dd" />
-                    <p:autoComplete id="dd" dropdown="true" value="#{mBQuestion.questionText}" completeMethod="#{mBQuestion.autoCompleteQuestion}" />
-                </h:form>
-    
+            <ui:define name="center">
 
             </ui:define>
             <ui:define name="content">
+                <h:form>
+                    <p:outputLabel value="Izaberite pitanje:" for="dd" />
+                    <p:autoComplete id="dd" dropdown="true" value="#{mBQuestion.questionText}" completeMethod="#{mBQuestion.autoCompleteQuestion}" />
+                </h:form>
 
-         
+
             </ui:define>
 
             <ui:define name="bottom">
-                
+
             </ui:define>
 
         </ui:composition>
