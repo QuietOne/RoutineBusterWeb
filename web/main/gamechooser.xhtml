@@ -22,10 +22,10 @@
             </ui:define>
             <ui:define name="content">
 
-                <h:form id="subnavForm" prependId="false" styleClass="tree">
-                    <p:tree value="#{categoryTree.root}" var="node" selectionMode="single">
-                        <p:ajax process=":subnavForm" update=":subnavForm" event="select" listener="#{categoryTree.onNodeSelect}"/>
-                        <p:treeNode>
+                <h:form id="subnavForm" >
+                    <p:tree value="#{categoryTree.root}" var="node" selectionMode="single" styleClass="tree">
+                        <p:ajax process=":subnavForm" update=":subnavForm" event="select" listener="#{categoryTree.onNodeSelect}" />
+                        <p:treeNode >
                             <h:outputText value="#{node}"/>
                         </p:treeNode>
                     </p:tree>
