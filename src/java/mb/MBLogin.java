@@ -69,6 +69,8 @@ public class MBLogin {
 
     public String logOut() {
         mBSession.setActiveClient(null);
+        mBSession.setChosenCategory(null);
+        mBSession.setGameOn(false);
         return "/main/index.xhtml";
     }
 

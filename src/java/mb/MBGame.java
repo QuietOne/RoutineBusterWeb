@@ -41,13 +41,10 @@ public class MBGame implements Serializable {
 
     @EJB
     private SessionQuestionLocal sQuestion;
-
     @EJB
     private SessionAnswerLocal sAnswer;
-
     @EJB
     private SessionTestLocal sTest;
-
     @EJB
     private SessionResultLocal sResult;
 
@@ -223,6 +220,9 @@ public class MBGame implements Serializable {
      */
     public String getQuestionText() {
         String temp = activeQuestion.getText();
+        if (temp==null) {
+            return "";
+        }
         StringBuilder builder = new StringBuilder(temp);
         boolean canDo = true;
         final int NEW_LINE = 70;
@@ -311,10 +311,6 @@ public class MBGame implements Serializable {
 
     public void setmBSession(MBSession mBSession) {
         this.mBSession = mBSession;
-    }
-
-    public String hello() {
-        return "-------------------------------hello-------------------------";
     }
 
     public SessionQuestionLocal getsQuestion() {

@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mb;
 
 import domain.Client;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import javax.inject.Named;
+import javax.faces.context.FacesContext;
 import session.client.SessionClientLocal;
 
 /**
@@ -43,17 +38,10 @@ public class MBChangePassword implements Serializable {
 
     public void changePassword() {
         try {
-
-            /*  
-             System.out.println("Username: "+mBSession.getActiveClient().getUsername());
-             System.out.println("Stara: "+oldPassword);
-             System.out.println("Nova: "+newPassword);
-             System.out.println("Cek: "+confirmPassword);
-             */
             sbClient.changePassword(mBSession.getActiveClient().getUsername(), oldPassword, newPassword, confirmPassword);
-
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sifra je uspesno promenjena", ""));
         } catch (Exception e) {
-            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
         }
     }
 

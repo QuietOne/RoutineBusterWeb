@@ -1,8 +1,6 @@
 package mb;
 
 import domain.Client;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -33,6 +31,8 @@ public class MBRegistration {
      */
     public MBRegistration() {
         client = new Client();
+        client.setAdmin(Boolean.FALSE);
+        client.setForbiden(Boolean.FALSE);
     }
 
     public void addClient() {
@@ -41,7 +41,7 @@ public class MBRegistration {
             sbClient.addClient(client);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Uspesno je sacuvan korisnik!", ""));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Greska:" + e.getMessage(), ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Greska: " + e.getMessage(), ""));
         }
     }
 
@@ -68,6 +68,5 @@ public class MBRegistration {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-    
     
 }
