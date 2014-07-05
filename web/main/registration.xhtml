@@ -4,34 +4,37 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Registration</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/login.css"/>
+        <title>Routine Buster</title>
     </h:head>
     <h:body>
-        <h:form id="frmRegistration">
+        <h:form id="frmRegistration" class="form-signin">
             <p:messages id="msgPoruke" />
             <h:panelGrid columns="2">
 
                 <h:outputText value="Ime:"/>
-                <h:inputText value="#{mBRegistration.client.name}" />
-                
+                <h:inputText class="form-control" value="#{mBRegistration.client.name}" />
+
                 <h:outputText value="Prezime:"/>
-                <h:inputText value="#{mBRegistration.client.coname}" />
-                
+                <h:inputText class="form-control" value="#{mBRegistration.client.coname}" />
+
                 <h:outputText value="Korisnicko ime:"/>
-                <h:inputText value="#{mBRegistration.client.username}" />
+                <h:inputText class="form-control" value="#{mBRegistration.client.username}" />
 
                 <h:outputText value="Korisnicka sifra:"/>  
-                <h:inputSecret value="#{mBRegistration.client.password}" />
-                
+                <h:inputSecret class="form-control" value="#{mBRegistration.client.password}" />
+
                 <h:outputText value="Ponovo ukucajte sifru:"/>  
-                <h:inputSecret value="#{mBRegistration.confirmPassword}" />
-                
+                <h:inputSecret class="form-control" value="#{mBRegistration.confirmPassword}" />
+
                 <h:outputText value="Email:"/>  
-                <h:inputText value="#{mBRegistration.client.email}" />
+                <h:inputText class="form-control" value="#{mBRegistration.client.email}" />
 
             </h:panelGrid>                       
 
             <p:commandButton value="Registruj se" action="#{mBRegistration.addClient()}"  ajax="false" />
+            <p:commandButton value="Logovanje" action="#{mBLogin.returnTOLogin()}"  ajax="false" />
         </h:form>
     </h:body>
 </html>

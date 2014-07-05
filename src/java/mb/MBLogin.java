@@ -51,7 +51,7 @@ public class MBLogin {
             }
             activeClient = SBClient.getClient(activeClient.getUsername());
             mBSession.setActiveClient(activeClient);
-            return "/main/main.xhtml"; 
+            return "/main/main.xhtml";
         } catch (Exception ex) {
             ex.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Korisnik nije uspesno ucitan", ""));
@@ -59,9 +59,17 @@ public class MBLogin {
         return null;
     }
 
+    public String register() {
+        return "/main/registration.xhtml";
+    }
+
+    public String returnTOLogin() {
+        return "/main/index.xhtml";
+    }
+
     public String logOut() {
         mBSession.setActiveClient(null);
-        return "index.xhtml";
+        return "/main/index.xhtml";
     }
 
     public MBSession getmBSession() {
@@ -72,7 +80,7 @@ public class MBLogin {
         this.mBSession = mBSession;
     }
 
-    public boolean isIsActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
