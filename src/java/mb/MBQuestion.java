@@ -6,6 +6,7 @@
 package mb;
 
 import domain.Question;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
@@ -22,6 +23,7 @@ import session.question.SessionQuestionLocal;
 public class MBQuestion {
 
     private String questionText;
+    private List<Question> questionList;
 
     @EJB
     SessionQuestionLocal sQuestion;
@@ -33,10 +35,13 @@ public class MBQuestion {
      * Creates a new instance of MBQuestion
      */
     public MBQuestion() {
+        questionList = new ArrayList<>();
     }
 
     public List<Question> autoCompleteQuestion(String text) {
-        return sQuestion.autocompleteQuestion(text);
+        questionList = sQuestion.autocompleteQuestion(text);
+        //   return sQuestion.autocompleteQuestion(text);
+        return questionList;
     }
 
     public String getQuestionText() {
@@ -45,6 +50,14 @@ public class MBQuestion {
 
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
+    }
+
+    public List<Question> getQuestionList() {
+        return questionList;
+    }
+
+    public void setQuestionList(List<Question> questionList) {
+        this.questionList = questionList;
     }
 
 }

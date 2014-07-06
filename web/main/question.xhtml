@@ -20,10 +20,28 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
-                    <p:outputLabel value="Izaberite pitanje:" for="dd" />
+                    <p:outputLabel value="Izaberite pitanje: " for="dd" />
                     <p:autoComplete id="dd" value="#{mBQuestion.questionText}" completeMethod="#{mBQuestion.autoCompleteQuestion}" effect="fade"/>
                 </h:form>
+                <p></p>
 
+                <p:dataTable var="que" value="#{mBQuestion.questionList}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{que.idQuestion}" />
+                    </p:column>
+
+                    <p:column headerText="Text">
+                        <h:outputText value="#{que.text}" />
+                    </p:column>
+
+                    <p:column headerText="Approved">
+                        <h:outputText value="#{que.approved}" />
+                    </p:column>
+
+                    <p:column headerText="Deleted">
+                        <h:outputText value="#{que.deleted}" />
+                    </p:column>
+                </p:dataTable>
 
             </ui:define>
 
