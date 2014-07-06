@@ -44,6 +44,18 @@ public class MBQuestion {
         return questionList;
     }
 
+    public void addToTable() {
+
+    }
+
+    public void resetTable() {
+
+    }
+
+    public void saveQuestions() {
+
+    }
+
     public String getQuestionText() {
         return questionText;
     }

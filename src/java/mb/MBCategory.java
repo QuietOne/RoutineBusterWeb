@@ -39,8 +39,17 @@ public class MBCategory {
     }
 
     public List<Category> autoCompleteCategory(String name) {
-    //    categoryList = sCategory.autocompleteCategory(name);        
+        //    categoryList = sCategory.autocompleteCategory(name);        
         return sCategory.autocompleteCategory(name);
+    }
+
+    public void addToTable() {
+    }
+
+    public void resetTable() {
+    }
+
+    public void saveCategories() {
     }
 
     public SessionCategoryLocal getsCategory() {
@@ -74,8 +83,5 @@ public class MBCategory {
     public void setmBSession(MBSession mBSession) {
         this.mBSession = mBSession;
     }
-
-
-
 
 }

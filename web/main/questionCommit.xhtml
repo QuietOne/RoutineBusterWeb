@@ -20,8 +20,10 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
-                    <p:outputLabel value="Izaberite pitanje: " for="dd" />
+                    <p:outputLabel value="Odobri pitanje: " for="dd" />
                     <p:autoComplete id="dd" value="#{mBQuestion.questionText}" completeMethod="#{mBQuestion.autoCompleteQuestion}" effect="fade"/>
+                    <p:commandButton value="Dodaj u tabelu" action="#{mBQuestion.addToTable()}"  ajax="false" />
+
                 </h:form>
                 <p></p>
 
@@ -46,7 +48,10 @@
             </ui:define>
 
             <ui:define name="bottom">
-
+                <h:form>
+                    <p:commandButton value="Resetuj tabelu" action="#{mBQuestion.resetTable()}"  ajax="false" />
+                    <p:commandButton value="Sačuvaj tabelu" action="#{mBQuestion.saveQuestions()}"  ajax="false" />
+                </h:form>
             </ui:define>
 
         </ui:composition>

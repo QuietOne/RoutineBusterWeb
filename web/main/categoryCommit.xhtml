@@ -20,8 +20,10 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
-                    <p:outputLabel value="Izaberite kategoriju: " for="dd" />
+                    <p:outputLabel value="Odobrite kategoriju: " for="dd" />
                     <p:autoComplete id="dd" value="#{mBCategory.categoryName}" completeMethod="#{mBCategory.autoCompleteCategory(name)}" effect="fade"/>
+                    <p:commandButton value="Dodaj u tabelu" action="#{mBCategory.addToTable()}"  ajax="false" />
+
                 </h:form>
 
                 <p></p>
@@ -43,6 +45,13 @@
                         <h:outputText value="#{cat.idCate}" />
                     </p:column>
                 </p:dataTable>
+            </ui:define>
+
+            <ui:define name="bottom">
+                <h:form>
+                    <p:commandButton value="Resetuj tabelu" action="#{mBCategory.resetTable()}"  ajax="false" />
+                    <p:commandButton value="Sačuvaj tabelu" action="#{mBCategory.saveCategories()}"  ajax="false" />
+                </h:form>
             </ui:define>
 
         </ui:composition>
