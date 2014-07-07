@@ -56,23 +56,24 @@ public class MBQuestion implements Serializable{
         if (temp != null && !temp.isEmpty()) {
             autocomplete = temp;
         }
-        System.out.println("Autocomplete load: " + temp);;
         return temp;
     }
     
-    public void saveApproveQuestion(List<Question> q){
-        System.out.println("Sout park");
+    public List<Question> autocompleteDeleteQuestion(String text) {
+        List<Question> temp = sQuestion.autocompleteDeleteQuestion(text);
+        if (temp != null && !temp.isEmpty()) {
+            autocomplete = temp;
+        }
+        return temp;
     }
     
     public void saveApproveQuestions(Question q) {
         if (questionList == null) {
             return;
         }
-        System.out.println("Save " + questionList);
         for (Question question1 : questionList) {
             try {
-                question1.setApproved(Boolean.TRUE);
-                sQuestion.updateQuestion(question1);
+                sQuestion.approveQuestion(question1);
             } catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, question1.getText() + " nije se uspesno ubacilo u bazu", ""));
                 question1.setApproved(Boolean.FALSE);
@@ -81,17 +82,20 @@ public class MBQuestion implements Serializable{
         questionList.clear();
     }
     
-    /*public void saveApproveQuestions(Question question) {
-        if (question==null) {
+    public void deleteQuestions(Question q){
+        if (questionList == null) {
             return;
         }
-        question.setApproved(Boolean.TRUE);
-        try {
-            sQuestion.updateQuestion(question);
-        } catch (Exception ex) {
-            Logger.getLogger(MBQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        for (Question question1 : questionList) {
+            try {
+                sQuestion.deleteQuestion(question1);
+            } catch (Exception ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, question1.getText() + " nije se uspesno ubacilo u bazu", ""));
+                question1.setDeleted(Boolean.FALSE);
+            }
         }
-    }*/
+        questionList.clear();
+    }
 
     public List<Question> getQuestionList() {
         return questionList;
