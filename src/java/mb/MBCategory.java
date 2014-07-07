@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -23,7 +24,7 @@ import session.category.SessionCategoryLocal;
  *
  * @author Jelena Tabaš
  */
-@Named(value = "mBCategory")
+@ManagedBean(name = "mBCategory")
 @ViewScoped
 public class MBCategory implements Serializable {
 
@@ -71,6 +72,29 @@ public class MBCategory implements Serializable {
         for (Category category1 : categoryList) {
             try {
                 sCategory.approveCategory(category1);
+            } catch (Exception ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, category1.getName() + " nije se uspesno ubacila u bazu", ""));
+                category1.setApproved(Boolean.FALSE);
+            }
+        }
+        categoryList.clear();
+    }
+
+    public List<Category> autocompleteDeleteCategory(String text) {
+        List<Category> temp = sCategory.autocompleteDeleteCategory(text);
+        if (temp != null && !temp.isEmpty()) {
+            autocomplete = temp;
+        }
+        return temp;
+    }
+
+    public void deleteCategory(Category q) {
+        if (categoryList == null) {
+            return;
+        }
+        for (Category category1 : categoryList) {
+            try {
+                sCategory.deleteCategory(category1);
             } catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, category1.getName() + " nije se uspesno ubacila u bazu", ""));
                 category1.setApproved(Boolean.FALSE);
