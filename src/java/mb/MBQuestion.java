@@ -1,32 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mb;
 
 import domain.Question;
+import java.awt.event.FocusEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.inject.Named;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import session.question.SessionQuestionLocal;
 
 /**
  *
  * @author Jelena Tabaš
  */
-@Named(value = "mBQuestion")
-@Dependent
-public class MBQuestion {
+@ManagedBean(name = "mBQuestion")
+@ViewScoped
+public class MBQuestion implements Serializable{
 
-    private String questionText;
     private List<Question> questionList;
+    private List<Question> autocomplete;
 
     @EJB
-    SessionQuestionLocal sQuestion;
+    private SessionQuestionLocal sQuestion;
 
     @ManagedProperty(value = "#{mBSession}")
     private MBSession mBSession;
@@ -35,34 +38,60 @@ public class MBQuestion {
      * Creates a new instance of MBQuestion
      */
     public MBQuestion() {
+
+    }
+
+    @PostConstruct
+    public void init() {
         questionList = new ArrayList<>();
+        autocomplete = new ArrayList<>();
     }
 
-    public List<Question> autoCompleteQuestion(String text) {
-        questionList = sQuestion.autocompleteQuestion(text);
-        //   return sQuestion.autocompleteQuestion(text);
-        return questionList;
+    public List<Question> autocompleteQuestion(String text) {
+        return sQuestion.autocompleteQuestion(text);
     }
 
-    public void addToTable() {
-
+    public List<Question> autocompleteApproveQuestion(String text) {
+        List<Question> temp = sQuestion.autocompleteApproveQuestion(text);
+        if (temp != null && !temp.isEmpty()) {
+            autocomplete = temp;
+        }
+        System.out.println("Autocomplete load: " + temp);;
+        return temp;
     }
-
-    public void resetTable() {
-
+    
+    public void saveApproveQuestion(List<Question> q){
+        System.out.println("Sout park");
     }
-
-    public void saveQuestions() {
-
+    
+    public void saveApproveQuestions(Question q) {
+        if (questionList == null) {
+            return;
+        }
+        System.out.println("Save " + questionList);
+        for (Question question1 : questionList) {
+            try {
+                question1.setApproved(Boolean.TRUE);
+                sQuestion.updateQuestion(question1);
+            } catch (Exception ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, question1.getText() + " nije se uspesno ubacilo u bazu", ""));
+                question1.setApproved(Boolean.FALSE);
+            }
+        }
+        questionList.clear();
     }
-
-    public String getQuestionText() {
-        return questionText;
-    }
-
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
-    }
+    
+    /*public void saveApproveQuestions(Question question) {
+        if (question==null) {
+            return;
+        }
+        question.setApproved(Boolean.TRUE);
+        try {
+            sQuestion.updateQuestion(question);
+        } catch (Exception ex) {
+            Logger.getLogger(MBQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
 
     public List<Question> getQuestionList() {
         return questionList;
@@ -72,4 +101,27 @@ public class MBQuestion {
         this.questionList = questionList;
     }
 
+    public SessionQuestionLocal getsQuestion() {
+        return sQuestion;
+    }
+
+    public void setsQuestion(SessionQuestionLocal sQuestion) {
+        this.sQuestion = sQuestion;
+    }
+
+    public MBSession getmBSession() {
+        return mBSession;
+    }
+
+    public void setmBSession(MBSession mBSession) {
+        this.mBSession = mBSession;
+    }
+
+    public List<Question> getAutocomplete() {
+        return autocomplete;
+    }
+
+    public void setAutocomplete(List<Question> autocomplete) {
+        this.autocomplete = autocomplete;
+    }
 }

@@ -22,7 +22,7 @@
                 <h:form>
                     <p:outputLabel value="Odobrite kategoriju: " for="dd" />
                     <p:autoComplete id="dd" value="#{mBCategory.categoryName}" completeMethod="#{mBCategory.autoCompleteCategory(name)}" effect="fade"/>
-                    <p:commandButton value="Dodaj u tabelu" action="#{mBCategory.addToTable()}"  ajax="false" />
+                    <p:commandButton value="Dodaj u tabelu" action="#{mBCategory.addToTable()}"  ajax="true" />
 
                 </h:form>
 
@@ -49,8 +49,8 @@
 
             <ui:define name="bottom">
                 <h:form>
-                    <p:commandButton value="Resetuj tabelu" action="#{mBCategory.resetTable()}"  ajax="false" />
-                    <p:commandButton value="Sačuvaj tabelu" action="#{mBCategory.saveCategories()}"  ajax="false" />
+                    <p:commandButton value="Resetuj tabelu" action="#{mBCategory.resetTable()}"  ajax="true" />
+                    <p:commandButton value="Sačuvaj tabelu" action="#{mBCategory.saveCategories()}"  ajax="true" />
                 </h:form>
             </ui:define>
 
