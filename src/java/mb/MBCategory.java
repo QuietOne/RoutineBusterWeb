@@ -6,12 +6,15 @@
 package mb;
 
 import domain.Category;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import session.category.SessionCategoryLocal;
@@ -21,8 +24,8 @@ import session.category.SessionCategoryLocal;
  * @author Jelena Tabaš
  */
 @Named(value = "mBCategory")
-@Dependent
-public class MBCategory {
+@ViewScoped
+public class MBCategory implements Serializable {
 
     private String categoryName;
     private List<Category> categoryList;
@@ -38,7 +41,13 @@ public class MBCategory {
      * Creates a new instance of MBQuestion
      */
     public MBCategory() {
+
+    }
+
+    @PostConstruct
+    public void init() {
         categoryList = new ArrayList<>();
+        autocomplete = new ArrayList<>();
     }
 
     public List<Category> autoCompleteCategory(String name) {
@@ -51,7 +60,6 @@ public class MBCategory {
         if (temp != null && !temp.isEmpty()) {
             autocomplete = temp;
         }
-        System.out.println("Autocomplete load: " + temp);;
         return temp;
     }
 
@@ -62,10 +70,9 @@ public class MBCategory {
         System.out.println("Save " + categoryList);
         for (Category category1 : categoryList) {
             try {
-                category1.setApproved(Boolean.TRUE);
-                sCategory.updateCategory(category1);
+                sCategory.approveCategory(category1);
             } catch (Exception ex) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, category1.getName()+ " nije se uspesno ubacila u bazu", ""));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, category1.getName() + " nije se uspesno ubacila u bazu", ""));
                 category1.setApproved(Boolean.FALSE);
             }
         }
@@ -111,6 +118,14 @@ public class MBCategory {
 
     public void setmBSession(MBSession mBSession) {
         this.mBSession = mBSession;
+    }
+
+    public List<Category> getAutocomplete() {
+        return autocomplete;
+    }
+
+    public void setAutocomplete(List<Category> autocomplete) {
+        this.autocomplete = autocomplete;
     }
 
 }
