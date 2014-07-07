@@ -20,21 +20,14 @@ public class QuestionConverter implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         MBQuestion mBQuestion = (MBQuestion) FacesContext.getCurrentInstance().getViewRoot()
                 .getViewMap().get("mBQuestion");
-        System.out.println("MBQusetion properties");
-        System.out.println("Autocomplete: "+mBQuestion.getAutocomplete());
-        System.out.println("Lista pitanja: "+mBQuestion.getQuestionList());
         try {
             List<Question> autocomplete = mBQuestion.getAutocomplete();
             for (Question question : autocomplete) {
                 if (question.getText().equals(value)) {
-                    
-                    //mBQuestion.getQuestionList().add(question);
                     return question;
                 }
             }
         } catch (NullPointerException npe) {
-            System.out.println("Sorry, sir, but I didn't find penny");
-            npe.printStackTrace();
             return null;
         }
         return null;

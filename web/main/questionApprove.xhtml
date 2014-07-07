@@ -49,6 +49,10 @@
                                 <f:facet name="header"> Kategorija </f:facet>
                                 <h:outputText value="#{question.idCat}" />
                             </p:column>
+                            <p:column>
+                                <f:facet name="header"> NadKategorija </f:facet>
+                                <h:outputText value="#{question.idCat.idCate}" />
+                            </p:column>
                         </p:autoComplete>
                     </p:column>
                     <p:commandButton value="Sacuvaj" action="#{mBQuestion.saveApproveQuestions(q)}" update="@form"/>
