@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
 
 
@@ -20,41 +21,39 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
-                    <p:outputLabel value="Odobrite kategoriju: " for="dd" />
-                    <p:autoComplete id="dd" value="#{mBCategory.categoryName}" completeMethod="#{mBCategory.autoCompleteCategory(name)}" effect="fade"/>
-                    <p:commandButton value="Dodaj u tabelu" action="#{mBCategory.addToTable()}"  ajax="true" />
+                    <p:column headerText="Kategorije">                               
+                        <p:autoComplete
+                            styleClass="autocomplete"
+                            value="#{mBCategory.categoryList}" 
+                            completeMethod="#{mBCategory.autocompleteApproveQuestion}"
+                            multiple="true"
+                            var="category"
+                            itemLabel="#{category}" 
+                            itemValue="#{category}"
+                            converter="categoryConverter"
+                            forceSelection="false"
+                            immediate="true"
+                            >
+                            <p:ajax event="itemSelect"  process="@this"></p:ajax>
+                            <p:ajax event="itemUnselect" process="@this"></p:ajax>
 
+                            <p:column>
+                                <f:facet name="header">ID</f:facet>
+                                <h:outputText value="#{category.idCat}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header"> Naziv </f:facet>
+                                <h:outputText value="#{category.name}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header"> Pripada kategoriji </f:facet>
+                                <h:outputText value="#{category.idCate}" />
+                            </p:column>
+                        </p:autoComplete>
+                    </p:column>
+                    <p:commandButton value="Sacuvaj" action="#{mBCategory.saveApproveCategories(c)}" update="@form"/>
                 </h:form>
-
-                <p></p>
-
-                <p:dataTable var="cat" value="#{mBCategory.categoryList}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{cat.idCat}" />
-                    </p:column>
-
-                    <p:column headerText="Name">
-                        <h:outputText value="#{cat.name}" />
-                    </p:column>
-
-                    <p:column headerText="Approved">
-                        <h:outputText value="#{cat.approved}" />
-                    </p:column>
-
-                    <p:column headerText="Parent">
-                        <h:outputText value="#{cat.idCate}" />
-                    </p:column>
-                </p:dataTable>
             </ui:define>
-
-            <ui:define name="bottom">
-                <h:form>
-                    <p:commandButton value="Resetuj tabelu" action="#{mBCategory.resetTable()}"  ajax="true" />
-                    <p:commandButton value="Sačuvaj tabelu" action="#{mBCategory.saveCategories()}"  ajax="true" />
-                </h:form>
-            </ui:define>
-
-        </ui:composition>
 
     </h:body>
 

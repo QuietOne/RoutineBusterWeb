@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import session.category.SessionCategoryLocal;
 
@@ -24,6 +26,7 @@ public class MBCategory {
 
     private String categoryName;
     private List<Category> categoryList;
+    private List<Category> autocomplete;
 
     @EJB
     private SessionCategoryLocal sCategory;
@@ -41,6 +44,32 @@ public class MBCategory {
     public List<Category> autoCompleteCategory(String name) {
         //    categoryList = sCategory.autocompleteCategory(name);        
         return sCategory.autocompleteCategory(name);
+    }
+
+    public List<Category> autocompleteApproveCategory(String text) {
+        List<Category> temp = sCategory.autocompleteApproveCategory(text);
+        if (temp != null && !temp.isEmpty()) {
+            autocomplete = temp;
+        }
+        System.out.println("Autocomplete load: " + temp);;
+        return temp;
+    }
+
+    public void saveApproveCategories(Category c) {
+        if (categoryList == null) {
+            return;
+        }
+        System.out.println("Save " + categoryList);
+        for (Category category1 : categoryList) {
+            try {
+                category1.setApproved(Boolean.TRUE);
+                sCategory.updateCategory(category1);
+            } catch (Exception ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, category1.getName()+ " nije se uspesno ubacila u bazu", ""));
+                category1.setApproved(Boolean.FALSE);
+            }
+        }
+        categoryList.clear();
     }
 
     public void addToTable() {
