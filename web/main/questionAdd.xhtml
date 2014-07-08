@@ -23,6 +23,7 @@
                 <h:outputLabel value="Izaberi kategoriju u koju ce se ubaciti novo pitanje"/>
                 <p></p>
                 <h:form>
+                    <p:growl id="msgs" showDetail="true"/>
                     <p:tree value="#{mBAddQuestionTree.root}" 
                             var="node" selectionMode="single" styleClass="tree">
                         <p:ajax update="@form" event="select" listener="#{mBAddQuestionTree.onNodeSelect}" />
@@ -35,11 +36,9 @@
                         <h:outputText value="Izabrana kategorija je: #{mBAddQuestionTree.categoryChosen}"/>
                         <p></p>
                         <h:outputLabel value="Unesi tekst pitanja: "/>
-                        <h:inputText value="#{mBAddQuestionTree.text}" required="true"/>
+                        <h:inputText value="#{mBAddQuestionTree.text}"/>
                         <p></p>
-                        <h:commandButton value="Unesi pitanje" action="#{mBAddQuestionTree.addQuestion(text)}" >
-                            <p:ajax update="@form"/>
-                        </h:commandButton>
+                        <h:commandButton value="Unesi pitanje" action="#{mBAddQuestionTree.addQuestion()}" />
                     </h:panelGroup>
                 </h:form>
             </ui:define>

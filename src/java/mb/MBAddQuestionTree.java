@@ -7,9 +7,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.swing.event.ChangeEvent;
 import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.model.DefaultTreeNode;
@@ -119,9 +121,7 @@ public class MBAddQuestionTree implements Serializable{
         this.categoryChosen = categoryChosen;
     }
     
-    public void addQuestion(String text){
-        System.out.println("Text "+this.text);
-        System.out.println("Kategorija "+categoryChosen);
+    public void addQuestion(){
         if (text==null || text.equals("")) {
             return;
         }
@@ -132,8 +132,11 @@ public class MBAddQuestionTree implements Serializable{
         question.setText(text);
         try {
             sQuestion.addQuestion(question);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dodato je pitanje:", '"'+text+'"'+"u kategoriju "+categoryChosen );
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception ex) {
-            Logger.getLogger(MBAddQuestionTree.class.getName()).log(Level.SEVERE, null, ex);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Neuspeh", "Novo pitanje nije dodato");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
@@ -142,7 +145,6 @@ public class MBAddQuestionTree implements Serializable{
     }
 
     public void setText(String text) {
-        System.out.println("Uneo sam novi tekst " + text);
         this.text = text;
     }
 
