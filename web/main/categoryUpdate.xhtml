@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
 
 
@@ -19,39 +20,41 @@
 
             </ui:define>
             <ui:define name="content">
-                <h:form>
-                    <p:outputLabel value="Izmenite kategoriju: " for="dd" />
-                    <p:autoComplete id="dd" value="#{mBCategory.categoryName}" completeMethod="#{mBCategory.autoCompleteCategory(name)}" effect="fade"/>
-                    <p:commandButton value="Dodaj u tabelu" action="#{mBCategory.addToTable()}"  ajax="false" />
+                    <h:form id="form">
+                    <p:growl id="msgs" showDetail="true"/>
+                    <p:dataTable var="category" value="#{mBCategory.autocomplete}" paginator="true" rows="10" 
+                                 filteredValue="#{mBCategory.filteredList}"
+                                 widgetVar="categoryTable"
+                                 emptyMessage="Nema kategorije sa trazenim nazivom"
+                                 editable="true"
+                                 editMode="cell">
+                        <p:ajax event="cellEdit" listener="#{mBCategory.onCellEdit}" update=":form:msgs" />
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Pretrazi polja:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('categoryTable').filter()" 
+                                             placeholder="Unesi rec"/>
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column headerText="Id" filterBy="#{category.idCat}" filterMatchMode="contains">
+                            <h:outputText value="#{category.idCat}" />
+                        </p:column>
+
+                        <p:column headerText="Naziv" filterBy="#{category.name}" filterMatchMode="startsWith">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{category.name}"/></f:facet>
+                                <f:facet name="input"><p:inputText id="modelInput" value="#{category.name}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Nadkategorija" filterBy="#{category.idCate.name}" filterMatchMode="startsWith">
+                            <h:outputText value="#{category.idCate}" />
+                        </p:column>
+                    </p:dataTable>
 
                 </h:form>
-
-                <p></p>
-
-                <p:dataTable var="cat" value="#{mBCategory.categoryList}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{cat.idCat}" />
-                    </p:column>
-
-                    <p:column headerText="Name">
-                        <h:outputText value="#{cat.name}" />
-                    </p:column>
-
-                    <p:column headerText="Approved">
-                        <h:outputText value="#{cat.approved}" />
-                    </p:column>
-
-                    <p:column headerText="Parent">
-                        <h:outputText value="#{cat.idCate}" />
-                    </p:column>
-                </p:dataTable>
             </ui:define>
-            <ui:define name="bottom">
-                <h:form>
-                    <p:commandButton value="Resetuj tabelu" action="#{mBCategory.resetTable()}"  ajax="false" />
-                    <p:commandButton value="Sačuvaj tabelu" action="#{mBCategory.saveCategories()}"  ajax="false" />
-                </h:form>
-            </ui:define>
+      
         </ui:composition>
 
     </h:body>

@@ -19,37 +19,27 @@
 
             </ui:define>
             <ui:define name="content">
-                <h:form>
-                    <p:outputLabel value="Dodaj kategoriju: " for="dd" />
-                    <p:autoComplete id="dd" value="#{mBCategory.categoryName}" completeMethod="#{mBCategory.autoCompleteCategory(name)}" effect="fade"/>
-                    <p:commandButton value="Dodaj u tabelu" action="#{mBCategory.addToTable()}"  ajax="false" />
-                </h:form>
-
                 <p></p>
-
-                <p:dataTable var="cat" value="#{mBCategory.categoryList}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{cat.idCat}" />
-                    </p:column>
-
-                    <p:column headerText="Name">
-                        <h:outputText value="#{cat.name}" />
-                    </p:column>
-
-                    <p:column headerText="Approved">
-                        <h:outputText value="#{cat.approved}" />
-                    </p:column>
-
-                    <p:column headerText="Parent">
-                        <h:outputText value="#{cat.idCate}" />
-                    </p:column>
-                </p:dataTable>
-            </ui:define>
-            
-             <ui:define name="bottom">
+                <h:outputLabel value="Izaberi kategoriju u koju ce se ubaciti novu "/>
+                <p></p>
                 <h:form>
-                    <p:commandButton value="Resetuj tabelu" action="#{mBCategory.resetTable()}"  ajax="false" />
-                    <p:commandButton value="Sačuvaj tabelu" action="#{mBCategory.saveCategories()}"  ajax="false" />
+                    <p:growl id="msgs" showDetail="true"/>
+                    <p:tree value="#{mBAddCategoryTree.root}" 
+                            var="node" selectionMode="single" styleClass="tree">
+                        <p:ajax update="@form" event="select" listener="#{mBAddCategoryTree.onNodeSelect}" />
+                        <p:treeNode>
+                            <h:outputText value="#{node}"/>
+                        </p:treeNode>
+                    </p:tree>
+                    <p></p>
+                    <h:panelGroup rendered="#{mBAddCategoryTree.input}">
+                        <h:outputText value="Izabrana kategorija je: #{mBAddCategoryTree.categoryChosen}"/>
+                        <p></p>
+                        <h:outputLabel value="Unesi naziv katgorije: "/>
+                        <h:inputText value="#{mBAddCategoryTree.name}"/>
+                        <p></p>
+                        <h:commandButton value="Unesi k" action="#{mBAddCategoryTree.addCategory()}" />
+                    </h:panelGroup>
                 </h:form>
             </ui:define>
 

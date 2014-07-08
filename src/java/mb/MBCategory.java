@@ -9,15 +9,16 @@ import domain.Category;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import org.primefaces.event.CellEditEvent;
 import session.category.SessionCategoryLocal;
 
 /**
@@ -31,6 +32,7 @@ public class MBCategory implements Serializable {
     private String categoryName;
     private List<Category> categoryList;
     private List<Category> autocomplete;
+    private List<Category> filteredList;
 
     @EJB
     private SessionCategoryLocal sCategory;
@@ -48,12 +50,16 @@ public class MBCategory implements Serializable {
     @PostConstruct
     public void init() {
         categoryList = new ArrayList<>();
-        autocomplete = new ArrayList<>();
+        autocomplete = sCategory.getCategories();
+        filteredList = new ArrayList<>();
     }
 
     public List<Category> autoCompleteCategory(String name) {
-        //    categoryList = sCategory.autocompleteCategory(name);        
-        return sCategory.autocompleteCategory(name);
+        List<Category> temp = sCategory.autocompleteCategory(name);
+        if (temp != null && !temp.isEmpty()) {
+            autocomplete = temp;
+        }
+        return temp;
     }
 
     public List<Category> autocompleteApproveCategory(String text) {
@@ -62,6 +68,21 @@ public class MBCategory implements Serializable {
             autocomplete = temp;
         }
         return temp;
+    }
+
+    public void updateCategories(Category c) {
+        if (categoryList == null) {
+            return;
+        }
+        for (Category category1 : categoryList) {
+            try {
+                sCategory.updateCategory(category1);
+            } catch (Exception ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, category1.getName() + " nije se uspesno ubacila u bazu", ""));
+                category1.setApproved(Boolean.FALSE);
+            }
+        }
+        categoryList.clear();
     }
 
     public void saveApproveCategories(Category c) {
@@ -150,6 +171,39 @@ public class MBCategory implements Serializable {
 
     public void setAutocomplete(List<Category> autocomplete) {
         this.autocomplete = autocomplete;
+    }
+
+    public List<Category> getFilteredList() {
+        return filteredList;
+    }
+
+    public void setFilteredList(List<Category> filteredList) {
+        this.filteredList = filteredList;
+    }
+
+    public void onCellEdit(CellEditEvent event) {
+        String oldValue = (String) event.getOldValue();
+        String newValue = (String) event.getNewValue();
+        for (Category category : autocomplete) {
+            if (category.getName().equals(newValue)) {
+                try {
+                    sCategory.updateCategory(category);
+                } catch (Exception ex) {
+                    Logger.getLogger(MBQuestion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                autocomplete = sCategory.getCategories();
+                break;
+            }
+        }
+        if (newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Promenjen tekst", "Stari: " + oldValue + ", Novi:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public List<Category> getCategories() {
+        autocomplete = sCategory.getCategories();
+        return autocomplete;
     }
 
 }
