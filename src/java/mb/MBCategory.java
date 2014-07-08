@@ -124,15 +124,6 @@ public class MBCategory implements Serializable {
         categoryList.clear();
     }
 
-    public void addToTable() {
-    }
-
-    public void resetTable() {
-    }
-
-    public void saveCategories() {
-    }
-
     public SessionCategoryLocal getsCategory() {
         return sCategory;
     }

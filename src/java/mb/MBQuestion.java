@@ -108,7 +108,7 @@ public class MBQuestion implements Serializable {
         for (Question question1 : questionList) {
             try {
                 sQuestion.deleteQuestion(question1);
-            } catch (Exception ex) {
+             } catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, question1.getText() + " nije se uspesno ubacilo u bazu", ""));
                 question1.setDeleted(Boolean.FALSE);
             }
